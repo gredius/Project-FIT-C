@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.project.one.dao.BoardMapper">
+	
+	<!-- 게시글 목록 -->
+	<select id="boardList" resultType="BoardVO">
+		SELECT *
+		FROM
+			fit_board
+		ORDER BY
+			fit_boardnum DESC
+			
+	</select>
+	
+	<!-- 게시글 조회수 올리기 -->
+	<update id="hitCount" parameterType="int">
+		UPDATE
+			fit_board
+		SET
+			fit_boardhit = fit_boardhit + 1
+		WHERE
+			fit_boardnum = #{fit_boardnum}
+	</update>
+	
+	<!-- 게시글 읽기 -->
+	<select id="boardRead" parameterType="int" resultType="BoardVO">
+		SELECT *
+		FROM
+			fit_board
+		WHERE
+			fit_boardnum = #{fit_boardnum}		
+	</select>
+	
+	<insert id="boardWrite" parameterType="BoardVO">
+	
+		insert into
+			fit_board
+			(fit_boardnum, fit_userid, fit_boardtitle, fit_pcsets, fit_boardcontent, fit_boarddate)
+		values
+			(fit_board_seq.nextval, #{fit_userid}, #{fit_boardtitle}, #{fit_pcsets}, #{fit_boardcontent}, sysdate)
+	
+	</insert>
+	
+	<update id="boardUpdate" parameterType="BoardVO">
+	
+		update 
+			fit_board
+		set
+			fit_boardtitle = #{fit_boardtitle},
+			fit_pcsets = #{fit_pcsets},
+			fit_boardcontent = #{fit_boardcontent}
+		where
+			fit_boardnum = #{fit_boardnum}
+			AND fit_userid = #{fit_userid}
+	
+	</update>
+	
+	<delete id="boardDelete" parameterType="BoardVO">
+	
+		delete
+			fit_board
+		where
+			fit_boardnum = #{fit_boardnum}
+			AND fit_userid = #{fit_userid}
+	
+	</delete>
+	
+	<!-- 전체 게시글 수 가져오기 -->
+	<select id="getTotal" parameterType="map" resultType="int">
+		select
+			COUNT(*)
+		FROM
+			fit_board
+		WHERE
+			${searchItem} LIKE '%'||#{searchKeyword}||'%'
+	</select>
+	
+	<select id="commentList" parameterType="int" resultType="CommentVO">
+	
+		select *
+		from
+			fit_comment
+		where
+			fit_boardnum = #{fit_boardnum}
+		order by
+			fit_commentnum desc
+	</select>
+	
+	<insert id="commentWrite" parameterType="CommentVO">
+	
+		insert into
+			fit_comment
+		values (fit_comment_seq.nextval, #{fit_boardnum}, #{fit_userid}, #{fit_comments}, sysdate )		
+	
+	</insert>
+	
+	<delete id="commentDelete" parameterType="CommentVO">
+		delete
+			fit_comment
+		where
+			fit_commentnum = #{fit_commentnum}
+			AND fit_userid = #{fit_userid}
+	</delete>
+	
+	<update id="commentUpdate" parameterType="CommentVO">
+		
+		update
+			fit_comment
+		set
+			fit_comments = #{fit_comments}
+		where
+			fit_userid = #{fit_userid}
+			AND fit_commentnum = #{fit_commentnum}
+			
+	</update>
+	
+	<select id="pcsetList"  resultType="PCEstimateVO">
+	
+		select 
+			*
+		from 
+			fit_pcestimate
+		where
+			fit_userid = #{fit_userid}
+	
+	</select>
+	
+	<select id="getpc" parameterType="PCEstimateVO" resultType="PCEstimateVO">
+		select 
+			*
+		from
+			fit_pcestimate
+		where
+			fit_pcnum = #{fit_pcnum}
+	</select>
+	<select id="getPcOne" parameterType="PCEstimateVO" resultType="PCEstimateVO">
+		select 
+			*
+		from
+			fit_pcestimate
+		where
+			fit_pcnum = #{fit_pcsets}
+	</select>
+</mapper>
+

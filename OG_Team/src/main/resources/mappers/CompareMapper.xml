@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.project.one.dao.CompareMapper">
+
+	<select id="searchCPU" parameterType="String" resultType="CpuVO">
+		SELECT
+			*
+		FROM
+			fit_cpu
+		WHERE
+			UPPER(fit_name)
+		LIKE
+			UPPER('%'|| #{cpuname} || '%')
+	</select>
+	
+	<select id="searchMB" parameterType="String" resultType="MainBoardVO">
+		SELECT
+			*
+		FROM
+			fit_mainboard
+		WHERE
+			UPPER(fit_name)
+		LIKE
+			UPPER('%'|| #{name} || '%')
+	</select>
+	
+	<select id="searchGP" parameterType="String" resultType="GpuVO">
+		SELECT
+			*
+		FROM
+			fit_gpu
+		WHERE
+			UPPER(fit_name)
+		LIKE
+			UPPER('%'|| #{product_name} || '%')
+	</select>
+	
+	<select id="searchRAM" parameterType="String" resultType="RamVO">
+		SELECT
+			*
+		FROM
+			fit_ram
+		WHERE
+			UPPER(fit_name)
+		LIKE
+			UPPER('%'|| #{name} || '%')
+	</select>
+	<select id="selectGame" parameterType="java.util.HashMap" resultType="GameVO">
+		SELECT
+			*
+		FROM
+			fit_gamelist
+		WHERE
+			UPPER(fit_name)
+		LIKE
+			UPPER('%'|| #{searchkey} || '%')
+	</select>
+	<select id="getcpu" parameterType="java.util.HashMap" resultType="CpuVO">
+		SELECT
+			*
+		FROM
+			${table}
+		WHERE
+			UPPER(fit_name)
+		LIKE
+			UPPER('%'|| #{value} || '%')
+	</select>
+	<select id="getcase" parameterType="java.util.HashMap" resultType="CaseVO">
+		SELECT
+			*
+		FROM
+			${table}
+		WHERE
+			UPPER(fit_name)
+		LIKE
+			UPPER('%'|| #{value} || '%')
+	</select>
+	<select id="getpower" parameterType="java.util.HashMap" resultType="PowerVO">
+		SELECT
+			*
+		FROM
+			${table}
+		WHERE
+			UPPER(fit_name)
+		LIKE
+			UPPER('%'|| #{value} || '%')
+	</select>
+	<select id="getmain" parameterType="java.util.HashMap" resultType="MainBoardVO">
+		SELECT
+			*
+		FROM
+			${table}
+		WHERE
+			UPPER(fit_name)
+		LIKE
+			UPPER('%'|| #{value} || '%')
+	</select>
+	<insert id="saveesti" parameterType="PCEstimateVO">
+		insert into fit_pcestimate(fit_pcnum,fit_userid,fit_cpuname,fit_casename,fit_gpuname,fit_mainboardname,fit_powername,fit_ramname)
+		values(fit_pcestimate_seq.nextval,#{fit_userid},#{fit_cpuname},#{fit_casename},#{fit_gpuname},#{fit_mainboardname},#{fit_powername},#{fit_ramname})
+	</insert>
+</mapper>
+

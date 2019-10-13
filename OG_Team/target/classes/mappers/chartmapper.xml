@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.project.one.dao.ChartMapper">
+
+	<select id="gamelist" resultType="GameVO">
+
+		select
+			*
+		from
+			fit_gamelist
+
+	</select>
+	<select id="selectOneGame" parameterType="GameVO" resultType="GameVO">
+
+		select
+		*
+		from
+		fit_gamelist
+		where
+		fit_name = #{fit_name}
+	</select>
+	<select resultType="SteamVO" id="steamparsing">
+
+	<![CDATA[
+    select 
+		*
+	from
+		fit_steam
+	where
+        num  < 25
+    order by num    
+    ]]>
+	</select>
+</mapper>
+

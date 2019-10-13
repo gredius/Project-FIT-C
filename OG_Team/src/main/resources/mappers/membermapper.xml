@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.project.one.dao.MemberMapper">
+	<insert id="signUP" parameterType="MemberVO">
+	
+		insert into
+			fit_member(fit_userid,fit_userpwd,fit_usernick,fit_usermail,fit_userkeyvalue)
+		values
+		(
+			#{fit_userid},
+			#{fit_userpwd},
+			#{fit_usernick},
+			#{fit_usermail},
+			#{fit_userkeyvalue}
+		)
+				
+	</insert>
+	
+	<select id="checkID" parameterType="MemberVO" resultType="int">
+	
+		select
+			count(*)
+		from
+			fit_member
+		where
+			fit_userid = #{fit_userid}	
+	</select>
+	
+	<select id="logIN" parameterType="MemberVO" resultType="MemberVO">
+	
+		select *
+		from
+			fit_member
+		where
+			fit_userid = #{fit_userid}
+			AND fit_userpwd = #{fit_userpwd}
+				
+	</select>
+	
+	<select id="searchInfo" parameterType="MemberVO" resultType="MemberVO">
+	
+		select *
+		from
+			fit_member
+		where
+			fit_usernick = #{fit_usernick}
+			AND fit_usermail = #{fit_usermail}
+	
+	</select>
+	
+	<select id="searchPW" parameterType="MemberVO" resultType="MemberVO">
+	
+		select *
+		from
+			fit_member
+		where
+			fit_userid = #{fit_userid}
+			AND fit_username = #{fit_username}
+			AND fit_usermail = #{fit_usermail}
+	
+	</select>
+	
+	<update id="updateInfo" parameterType="MemberVO">
+	
+		update
+	 		fit_member
+	 	set 		
+	 		
+	 		fit_userpwd = #{fit_userpwd},	 		
+	 		fit_usernick = #{fit_usernick},
+	 		fit_usermail = #{fit_usermail}
+	 	where
+	 		fit_userid = #{fit_userid}
+	</update>
+	<update id="mailconfirm" parameterType="MemberVO">
+		update
+			fit_member
+		set
+			fit_userkeyvalue = 'Confirm'
+		where
+			fit_userid = #{fit_userid}
+			and
+			fit_userkeyvalue = #{fit_userkeyvalue}
+	</update>
+</mapper>
+

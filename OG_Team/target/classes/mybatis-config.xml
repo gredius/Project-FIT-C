@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="team.project.one.vo.CaseVO" alias ="CaseVO" />
+		<typeAlias type="team.project.one.vo.CpuVO" alias ="CpuVO" />
+		<typeAlias type="team.project.one.vo.GameVO" alias ="GameVO" />
+		<typeAlias type="team.project.one.vo.GpuVO" alias ="GpuVO" />
+		<typeAlias type="team.project.one.vo.MainBoardVO" alias ="MainBoardVO" />
+		<typeAlias type="team.project.one.vo.PowerVO" alias ="PowerVO" />
+		<typeAlias type="team.project.one.vo.RamVO" alias ="RamVO" />
+		<typeAlias type="team.project.one.vo.SteamVO" alias ="SteamVO" />
+		<typeAlias type="team.project.one.vo.MemberVO" alias ="MemberVO" />
+		<typeAlias type="team.project.one.vo.BoardVO" alias ="BoardVO" />
+		<typeAlias type="team.project.one.vo.PCEstimateVO" alias ="PCEstimateVO" />
+		<typeAlias type="team.project.one.vo.CommentVO" alias ="CommentVO" />
+		<typeAlias type="team.project.one.vo.PcVO" alias ="PcVO" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/chartmapper.xml" />
+		<mapper resource="mappers/parsingmapper.xml" />
+		<mapper resource="mappers/automapper.xml" />
+		<mapper resource="mappers/membermapper.xml" />
+		<mapper resource="mappers/boardmapper.xml" />
+		<mapper resource="mappers/CompareMapper.xml" />
+	</mappers>
+</configuration>

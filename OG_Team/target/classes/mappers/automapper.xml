@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.project.one.dao.AutoMapper">
+	
+	<select id="getlistcpu" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_cpu
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="||'%'||" open="" close="||'%'">
+			#{item}	 
+		</foreach>
+		))
+	</select>
+	
+	<select id="getlistgpu" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_gpu
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="||'%'||" open="" close="||'%'">
+			#{item}	 
+		</foreach>
+		))
+	</select>
+	<select id="getlistram" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_ram
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="||'%'||" open="" close="||'%'">
+			#{item}	 
+		</foreach>
+		))
+	</select>
+	<select id="getlistmainboard" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_mainboard
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="||'%'||" open="" close="||'%'">
+			#{item}	 
+		</foreach>
+		))
+	</select>
+	<select id="getlistcase" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_case
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="||'%'||" open="" close="||'%'">
+			#{item}	 
+		</foreach>
+		))
+	</select>
+	<select id="getlistpower" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_power
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="||'%'||" open="" close="||'%'">
+			#{item}	 
+		</foreach>
+		))
+	</select>
+	<select id="getliststeam" parameterType="java.util.HashMap" resultType="String">
+	select 
+		fit_name
+	from
+		fit_steam
+	where
+		(upper(fit_name) like upper('%'||
+		<foreach collection="keyvalue" item="item" separator="||'%'||" open="" close="||'%'">
+			#{item}	 
+		</foreach>
+		))
+	</select>
+	<select id="getlistall" parameterType="java.util.HashMap" resultType="String">
+	select b.* 
+	from
+		(select fit_name from fit_mainboard
+		union all
+		select fit_name from fit_power
+		union all
+		select fit_name from fit_cpu
+		union all
+		select fit_name from fit_case
+		union all
+		select fit_name from fit_gpu
+		union all
+		select fit_name from fit_steam) b
+		WHERE 
+		<foreach collection="keyvalue" item="item" separator="||'%'||" open="" close="||'%'">
+			#{item}	 
+		</foreach>
+	</select>
+</mapper>
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="team.project.one.dao.ParsingMapper">
+	<insert id="insertMainBoard" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_mainboard(num, fit_name, sockets, formFactor, chipSet, RAM, releaseDate, audioChip, usb2, usb3, sata)
+			values
+	   			(${item.num},#{item.fit_name},#{item.sockets},#{item.formFactor},#{item.chipSet},#{item.RAM},#{item.releaseDate},
+	       		#{item.audioChip},#{item.usb2},#{item.usb3},#{item.sata})
+ 		</foreach>
+	</insert>
+	<insert id="insertPower" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_power(num, fit_name, price, power, output, fansize, fannum, atx, sata, connecter, etc, releasedate)
+			values
+	   			(${item.num},#{item.fit_name},#{item.price, jdbcType=VARCHAR},#{item.power, jdbcType=VARCHAR},#{item.output, jdbcType=VARCHAR},#{item.fanSize, jdbcType=VARCHAR},#{item.fanNum, jdbcType=VARCHAR},
+	       		#{item.atx, jdbcType=VARCHAR},#{item.sata, jdbcType=VARCHAR},#{item.connecter, jdbcType=VARCHAR},#{item.etc, jdbcType=VARCHAR},#{item.releaseDate, jdbcType=VARCHAR})
+ 		</foreach>
+	</insert>
+	<insert id="insertCpu" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_cpu(num, fit_name, cpucode, cores, clock, socket, process, l3cache, tdp, released)
+			values
+	   			(#{item.num},#{item.fit_name},#{item.cpucode},#{item.cores},#{item.clock},#{item.socket},#{item.process},
+	       		#{item.l3cache},#{item.tdp},#{item.released})
+ 		</foreach>
+	</insert>
+	<insert id="insertCase" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_case(num, fit_name, rowprice, power, mainboardsize, casesize, addop)
+			values
+	   			(${item.num},#{item.fit_name},#{item.rowprice, jdbcType=VARCHAR},#{item.power, jdbcType=VARCHAR},#{item.mainboardsize, jdbcType=VARCHAR},#{item.casesize, jdbcType=VARCHAR},#{item.addop, jdbcType=VARCHAR})
+ 		</foreach>
+	</insert>
+	<insert id="insertRam" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_ram(num, fit_name, spec, src_link)
+			values
+	   			(${item.num},#{item.fit_name},#{item.spec},#{item.src_link})
+ 		</foreach>
+	</insert>
+	<insert id="insertGpu" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_gpu(num, manufacturer, fit_name, chip, realeased_date, bus, m_size,m_ddr,m_bit,g_clock,m_clock,tdp,rank)
+			values
+	   			(${item.num},
+	   			#{item.company},
+	   			#{item.fit_name},
+	   			#{item.chip},
+	   			#{item.released_date},#{item.bus},#{item.m_size},#{item.m_ddr},#{item.m_bit},#{item.g_clock},#{item.m_clock},#{item.tdp},#{item.rank})
+ 		</foreach>
+	</insert>
+	<insert id="insertSteam" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_steam(num, appid, fit_name)
+			values
+	   			(${item.num},#{item.appid},#{item.fit_name})
+ 		</foreach>
+	</insert>
+	<insert id="insertGame" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			into fit_gamelist(fit_name, gamelevel, pclevel,imagelink,gamecpu,gameram,gamegpu)
+			values
+	   			(#{item.fit_name},#{item.gamelevel},#{item.pclevel},#{item.imagelink},#{item.gamecpu},#{item.gameram},#{item.gamegpu})
+ 		</foreach>
+	</insert>
+	<select id="getCnt" parameterType="String" resultType="int">
+		select 
+			count(*)
+		from 
+			${value}
+	</select>
+	<update id="updatecpu">
+		update 
+			fit_cpu 
+		set 
+			fit_name = 'Intel '||fit_name where upper(fit_name) like upper('%'||'core'||'%'); 
+	</update>
+	<update id="updategpu">
+		update 
+			fit_gpu 
+		set 
+			fit_name = 'Intel '||fit_name where upper(fit_name) like upper('%'||'uhd'||'%'); 
+	</update>
+	<select id="getAppid" resultType="SteamVO">
+		<![CDATA[
+    		select 
+    			  *
+   			from
+    		  fit_steam
+  			 where
+      		  num  < 25 
+   			order by num    
+    ]]>
+	</select>
+</mapper>
